@@ -21,13 +21,13 @@ export default class CacheHandler {
   async get(key) {
     // This could be stored anywhere, like durable storage
     const item = cache.get(key);
-    const hit = !!key;
+    const hit = !!item;
     await Sentry.startSpan({
       name: `cache_transaction`,
     },  async () => {
       await Sentry.startSpan(
         {
-          name: 'fetch cached daily habits',
+          name: 'next-js-cache-lookup',
           op: 'cache.get_item',
         },
         async (span) => {
